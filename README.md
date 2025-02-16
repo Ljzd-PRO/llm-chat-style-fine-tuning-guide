@@ -37,7 +37,7 @@
 - `proceed-group-msg_user-at.py`: 简单将@目标用户的消息作为提问，生成 Alpaca 数据集
 - `proceed-group-msg_user-empty.py`: 提问设为空，生成 Alpaca 数据集，交由后续处理，**推荐**
 
-可再检查一遍是否有空答复内容的记录
+可再检查一遍是否有空答复内容的记录，替换删除可能存在的 `[表情]`、`，，` 文本片段
 
 ### 合并、缩减 Alpaca 数据集中答复内容
 
