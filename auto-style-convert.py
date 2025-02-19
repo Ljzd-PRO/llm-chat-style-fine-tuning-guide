@@ -5,7 +5,7 @@ from datetime import timedelta
 
 import time
 
-USER_NAME = "JY"
+USER_NAME = "敬业"
 
 
 def format_time(seconds):
@@ -62,7 +62,12 @@ def send_to_ollama(model, data_chunk, max_retries=100):
 如果无法理解，就重复原话
 
 有一些可能出现的网络用语需要转换成通俗易懂的：
-...
+- byd：表达感慨情绪
+- 若只：是“弱智”的意思
+- 啥比、沙比：是“傻逼”的意思
+- fw：是“废物”的意思
+- 吆西：表达感慨情绪
+- 皮燕子：屁眼子
 此外如果遇到了不认识的词，可根据其拼音进行猜测
 
 例如输入：
