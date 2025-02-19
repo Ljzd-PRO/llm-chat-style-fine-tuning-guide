@@ -5,7 +5,7 @@ from datetime import timedelta
 
 import time
 
-USER_NAME = "敬业"
+USER_NAME = "JY"
 
 
 def format_time(seconds):
@@ -62,12 +62,7 @@ def send_to_ollama(model, data_chunk, max_retries=100):
 如果无法理解，就重复原话
 
 有一些可能出现的网络用语需要转换成通俗易懂的：
-- byd：表达感慨情绪
-- 若只：是“弱智”的意思
-- 啥比、沙比：是“傻逼”的意思
-- fw：是“废物”的意思
-- 吆西：表达感慨情绪
-- 皮燕子：屁眼子
+...
 此外如果遇到了不认识的词，可根据其拼音进行猜测
 
 例如输入：
@@ -79,9 +74,9 @@ def send_to_ollama(model, data_chunk, max_retries=100):
 
 你应该输出：
 [
-    ["啊，这真的太爽了太舒服了", "byd真爽啊"],
-    ["它没有比面条更好吃", "不如面条"],
-    ["千层面非常好吃", "千层面好吃"]
+    ["byd真爽啊", "啊，这真的太爽了太舒服了"],
+    ["不如面条", "它没有比面条更好吃"],
+    ["千层面好吃", "千层面非常好吃"]
 ]
 \
 """
@@ -107,7 +102,7 @@ def send_to_ollama(model, data_chunk, max_retries=100):
             generated_content = json.loads(content)
 
             if not isinstance(generated_content, list) or len(generated_content) != len(data_chunk) or not all(
-                    map(lambda x: isinstance(x, str), generated_content)
+                    map(lambda x: isinstance(x[1], str), generated_content)
                 ):
                 raise ValueError("返回数据格式或长度不正确")
 
@@ -116,7 +111,7 @@ def send_to_ollama(model, data_chunk, max_retries=100):
                     "input": input_,
                     "output": output_row["output"],
                     "system": f"你是一个助手，需要对下面的聊天语句进行风格转换，目标风格是说话直接的、喜欢用粗话、心直口快的、刻薄、高高在上、嘲讽的"
-                } for output_row, (input_, _) in zip(data_chunk, filter(lambda x: bool(x[0]), generated_content))
+                } for output_row, (_, input_) in zip(data_chunk, filter(lambda x: bool(x[1]), generated_content))
             ]
 
             return generated_content
